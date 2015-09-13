@@ -2,10 +2,21 @@
 
 The Forex app config file is config/forex.php. This file contains a configurable email where notifications are sent to. It also contains the API key for retrieving exchange rates form currencylayer.com.
 
+Run the Following artisan commands to create db tables and populate currencies
+ php artisan migrate
+ php artisan db:seed
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+Once you have the app running:
+You can update the currencies' exchange rates with live data by running the [Fetch Rates URL](http://forex.dev/fetch-rates).
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## API End-Points
+
+/api/currencies - returns currency information
+api/order - store new order
+
+## Frontend APP
+
+The frontend app allows you to create new orders. It is accessible on [Frontend URL](http://forex.dev/app)
 
 ## Official Documentation
 

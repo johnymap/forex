@@ -11,6 +11,20 @@
 |
 */
 
+/* 
+* API Routes
+*/
+Route::get('fetch-rates', 'ForexController@getRates');
+Route::get('api/currencies', 'ForexController@getCurrencies');
+Route::resource('api/order', 'ForexController@storeOrders');
+
+//Route::get('','FrontEndController@index');
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('forex.index');
 });
+
+
+
+
+

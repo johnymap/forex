@@ -1,0 +1,29 @@
+<!-- form-interests.html -->
+<h3>Enter Order Details</h3>
+<div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" name="name" ng-model="formData.name">
+</div>
+
+<div class="form-group">
+    <label for="email">Email</label>
+    <input type="text" class="form-control" name="email" ng-model="formData.email">
+</div>
+
+<div class="form-group">
+    <label for="amount">Quantity</label>
+    <input type="text" class="form-control" name="amount_purchased" ng-model="formData.amount_purchased">
+</div>
+
+<div class="form-group">
+    <label for="amount">Amount to pay</label>
+    <input type="text" class="form-control" name="amount_paid" ng-model="formData.amount_paid">
+</div>
+
+<div class="form-group row">
+    <div class="col-xs-6 col-xs-offset-3">
+        <a ui-sref="form.payment" class="btn btn-block btn-info">
+            Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
+        </a>
+    </div>
+</div>
