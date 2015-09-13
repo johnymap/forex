@@ -19,26 +19,26 @@ angular.module('formApp', ['ngAnimate', 'ui.router'])
             // nested states
             // each of these sections will have their own view
             // url will be nested (/form/profile)
-            .state('form.profile', {
-                url: '/profile',
-                templateUrl: 'form-profile.html'
+            .state('form.choose', {
+                url: '/choose',
+                templateUrl: 'form-choose.html'
             })
 
             // url will be /form/interests
-            .state('form.interests', {
-                url: '/interests',
-                templateUrl: 'form-interests.html'
+            .state('form.order', {
+                url: '/order',
+                templateUrl: 'form-order.html'
             })
 
             // url will be /form/payment
-            .state('form.payment', {
-                url: '/payment',
-                templateUrl: 'form-payment.html'
+            .state('form.confirm', {
+                url: '/confirm',
+                templateUrl: 'form-confirm.html'
             });
 
         // catch all route
         // send users to the form page
-        $urlRouterProvider.otherwise('/form/profile');
+        $urlRouterProvider.otherwise('/form/choose');
     })
 
 // our controller for the form
@@ -57,35 +57,69 @@ angular.module('formApp', ['ngAnimate', 'ui.router'])
 
         $scope.total = 0;
         $scope.surcharge = 0;
-        $scope.soldSheets = 0;
 
         // function to process the form
         $scope.processForm = function() {
 
             console.log($scope.formData['name']);
-
-            switch ($scope.formData['currency_purchased']){
+            $scope.cur_pur = $scope.formData['currency_purchased'].split('-');
+            $scope.currency = $scope.cur_pur[0];
+            $scope.rate = $scope.cur_pur[1];
+            switch ($scope.currency){
                 case "USDUSD":
                     $scope.surcharge = 7.5;
-                    return;
+
                 case "USDGBP":
                     $scope.surcharge = 5;
-                    return;
+
                 case "USDEUR":
                     $scope.surcharge = 5;
-                    return;
+
                 case "USDKES":
                     $scope.surcharge = 2.5;
-                    return;
+
             }
-            $scope.rate = $scope.forex.indexOf($scope.formData['currency_purchased']);
-            alert($scope.rate);
 
-            $scope.rate = $scope.formData[$scope.rate];
+            console.log($scope.rate);
 
-            console.log($scope.rate['rate']);
+            console.log($scope.currency);
 
-            $scope.total = $scope.rate * $scope.surcharge;
+            //$scope.zar_rate = $scope.forex['code'].findIndexOf('USDZAR');
+            //console.log($scope.zar_rate);
+
+            $scope.total = ($scope.rate * $scope.surcharge) * $scope.formData['amount_purchased'];
+            $scope.formData['surcharge_percentage'] = $scope.surcharge;
+            $scope.formData['exchange_rate'] = $scope.rate;
+
+            console.log($scope.total);
+
+            //$scope.rate = $scope.formData[$scope.rate];
+
+            //console.log($scope.rate['rate']);
+
+            //$scope.total = $scope.rate * $scope.surcharge;
+
+            // process the form
+            $http({
+                method  : 'POST',
+                url     : '/api/order',
+                data    : $scope.formData,  // pass in data as strings
+                headers : { 'Content-Type': 'application/json' }  // set the headers so angular passing info as form data (not request payload)
+            })
+                .success(function(data) {
+                    console.log(data);
+
+                    if (!data.success) {
+                        // if not successful, bind errors to error variables
+                        //$scope.errorName = data.errors.name;
+                        //$scope.errorSuperhero = data.errors.superheroAlias;
+
+                    } else {
+                        // if successful, bind success message to message
+                        $scope.message = data.message;
+                    }
+                });
+
         };
 
     });

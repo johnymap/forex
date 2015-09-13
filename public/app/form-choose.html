@@ -1,9 +1,9 @@
-<!-- form-profile.html -->
+<!-- form-choose.html -->
 <h3>Choose Currency!</h3>
 <div ng-repeat="forex in forex">
     <div class="radio">
         <label>
-            <input type="radio" ng-model="formData.currency_purchased" value="{{forex['code']}}">
+            <input type="radio" ng-model="formData.currency_purchased" value="{{forex['code']}}-{{forex['rate']}}">
             {{forex['code']}} - {{forex['rate']}}
         </label>
     </div>
@@ -11,7 +11,7 @@
 
 <div class="form-group row">
     <div class="col-xs-6 col-xs-offset-3">
-        <a ui-sref="form.interests" class="btn btn-block btn-info">
+        <a ui-sref="form.order" class="btn btn-block btn-info">
             Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
         </a>
     </div>
