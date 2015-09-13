@@ -27,6 +27,7 @@ You can update the currencies' exchange rates with data from CurrencyLayer by ru
 ## API End-Points
 
 /api/currencies - returns currency information
+
 api/order - store new order
 
 ## Frontend APP
